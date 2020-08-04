@@ -3,6 +3,10 @@
     font-size: 1rem;
 }
 
+.messages .success {
+    background-color: rgba(108, 254, 85, 0.5);
+}
+
 .messages .error {
     background-color: rgba(254, 85, 85, 0.5);
 }
