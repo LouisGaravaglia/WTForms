@@ -1,31 +1,19 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, BooleanField
-from wtforms.validators import InputRequired, Optional, Email
+from wtforms.validators import InputRequired, Optional, NumberRange, URL, AnyOf
 
 
-# WTForms gives us lots of useful validators; we want to use these for validating our fields more carefully:
-
-#     the species should be either “cat”, “dog”, or “porcupine”
-#     the photo URL must be a URL (but it should still be able to be optional!)
-#     the age should be between 0 and 30, if provided
-
+animal_list = ["cat", "CAT", "Cat", "dog", "DOG", "Dog", "porcupine", "PORCUPINE", "Porcupine"]
 
 class AddPetForm(FlaskForm):
     """Form for adding pets."""
 
     name = StringField("Name of Pet")
-    species = StringField("Species of Pet")
-    photo = StringField("Photo of Pet")
-    age = IntegerField("Age of Pet")
+    species = StringField("Species of Pet", validators=[AnyOf(animal_list, message=None, values_formatter=None)])
+    photo = StringField("Photo URL of Pet", validators=[URL(require_tld=True, message=None), Optional()])
+    age = IntegerField("Age of Pet", validators=[NumberRange(min=0, max=30, message="The age must be between 0 and 30 years old.")])
     notes = StringField("Notes about Pet")
     available = BooleanField("Is Pet Avail?")
     
 
 
-# class UserForm(FlaskForm):
-#     """Form for adding/editing friend."""
-
-#     name = StringField("Name",
-#                        validators=[InputRequired()])
-#     email = StringField("Email Address",
-#                         validators=[Optional(), Email()])
