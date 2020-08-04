@@ -13,18 +13,18 @@
 
 
 
-<section id="users">
+<section class="pets">
 
-<h3 class="users_title">LATEST POSTS</h3>
+<h3 class="users_title">AVAILABLE PETS</h3>
 
 
-{% for post in posts %}
-<h2 class="mt-4 home-post-title">
-  <a href="/posts/{{ post.id }}">{{ post.title }}</a>
+{% for pet in pets %}
+<h2 class="mt-4 home-pet-title">
+  <a href="/pets/{{ pet.id }}">{{ pet.title }}</a>
 </h2>
-<p>{{ post.content }}</p>
+<p>{{ pet.content }}</p>
 <p>
-  <small>By {{ post.user.full_name }} on {{ post.friendly_date }}</small>
+  <small>By {{ pet.user.full_name }} on {{ pet.friendly_date }}</small>
 </p>
 {% endfor %}
 

@@ -1,19 +1,30 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, FloatField
+from wtforms import StringField, IntegerField
 from wtforms.validators import InputRequired, Optional, Email
 
 
-class AddSnackForm(FlaskForm):
-    """Form for adding snacks."""
+# WTForms gives us lots of useful validators; we want to use these for validating our fields more carefully:
 
-    name = StringField("Snack Name")
-    price = FloatField("Price in USD")
+#     the species should be either “cat”, “dog”, or “porcupine”
+#     the photo URL must be a URL (but it should still be able to be optional!)
+#     the age should be between 0 and 30, if provided
 
 
-class UserForm(FlaskForm):
-    """Form for adding/editing friend."""
+class AddPetForm(FlaskForm):
+    """Form for adding pets."""
 
-    name = StringField("Name",
-                       validators=[InputRequired()])
-    email = StringField("Email Address",
-                        validators=[Optional(), Email()])
+    name = StringField("Name of Pet")
+    species = StringField("Species of Pet")
+    photo = StringField("Photo of Pet")
+    age = IntegerField("Age of Pet")
+    notes = StringField("Notes about Pet")
+    
+
+
+# class UserForm(FlaskForm):
+#     """Form for adding/editing friend."""
+
+#     name = StringField("Name",
+#                        validators=[InputRequired()])
+#     email = StringField("Email Address",
+#                         validators=[Optional(), Email()])

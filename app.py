@@ -1,9 +1,7 @@
 from flask import Flask, render_template, flash, redirect, render_template
 from flask_debugtoolbar import DebugToolbarExtension
-from models import db, connect_db, User
-
-from forms import AddSnackForm
-from forms import UserForm
+from models import db, connect_db, Pet
+from forms import AddPetForm
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "oh-so-secret"
@@ -17,41 +15,64 @@ connect_db(app)
 
 @app.route("/")
 def homepage():
-    """Show homepage links."""
+    """Show homepage with available pets."""
+    
+    pets = Pet.query.all()
 
-    return render_template("index.html")
+    return render_template("index.html", pets=pets)
 
 
 @app.route("/add", methods=["GET", "POST"])
-def add_snack():
-    """Snack add form; handle adding."""
+def add_pet():
+    """Pet add form; handle adding."""
 
-    form = AddSnackForm()
+    form = AddPetForm()
 
     if form.validate_on_submit():
         name = form.name.data
-        price = form.price.data
-        flash(f"Added {name} at {price}")
+        species = form.species.data
+        photo = form.photo.data
+        age = form.age.data
+        notes = form.notes.data
+        flash(f"Added {name} the {species}")
         return redirect("/add")
 
     else:
         return render_template(
-            "snack_add_form.html", form=form)
+            "add_pet.html", form=form)
 
 
-@app.route("/users/<int:uid>/edit", methods=["GET", "POST"])
-def edit_user(uid):
-    """Show user edit form and handle edit."""
 
-    user = User.query.get_or_404(uid)
-    form = UserForm(obj=user)
+# @app.route("/add", methods=["GET", "POST"])
+# def add_snack():
+#     """Snack add form; handle adding."""
 
-    if form.validate_on_submit():
-        user.name = form.name.data
-        user.email = form.email.data
-        db.session.commit()
-        flash(f"User {uid} updated!")
-        return redirect(f"/users/{uid}/edit")
+#     form = AddSnackForm()
 
-    else:
-        return render_template("user_form.html", form=form)
+#     if form.validate_on_submit():
+#         name = form.name.data
+#         price = form.price.data
+#         flash(f"Added {name} at {price}")
+#         return redirect("/add")
+
+#     else:
+#         return render_template(
+#             "snack_add_form.html", form=form)
+
+
+# @app.route("/users/<int:uid>/edit", methods=["GET", "POST"])
+# def edit_user(uid):
+#     """Show user edit form and handle edit."""
+
+#     user = User.query.get_or_404(uid)
+#     form = UserForm(obj=user)
+
+#     if form.validate_on_submit():
+#         user.name = form.name.data
+#         user.email = form.email.data
+#         db.session.commit()
+#         flash(f"User {uid} updated!")
+#         return redirect(f"/users/{uid}/edit")
+
+#     else:
+#         return render_template("user_form.html", form=form)
