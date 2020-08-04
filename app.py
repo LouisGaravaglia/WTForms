@@ -46,6 +46,7 @@ def add_pet():
         return redirect("/add")
 
     else:
+
         return render_template(
             "add_pet.html", form=form)
 
