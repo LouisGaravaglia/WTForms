@@ -51,6 +51,28 @@ def add_pet():
             "add_pet.html", form=form)
 
 
+@app.route("/edit/<int:pet_id>", methods=["GET", "POST"])
+def edit_pet(pet_id):
+    """Edit the pet listing."""
+    pet = Pet.query.get_or_404(pet_id)
+    form = AddPetForm(obj=pet)
+
+    if form.validate_on_submit():
+        pet.name = form.name.data
+        pet.species = form.species.data
+        pet.photo = form.photo.data
+        pet.age = form.age.data
+        pet.notes = form.notes.data
+        pet.available = form.available.data
+        
+        db.session.commit()
+        flash(f"Updated {pet.name} the {pet.species}", "success")
+        return redirect(f"/edit/{pet_id}")
+
+    else:
+
+        return render_template(
+            "edit_pet.html", form=form, pet=pet)
 
 # @app.route("/add", methods=["GET", "POST"])
 # def add_snack():

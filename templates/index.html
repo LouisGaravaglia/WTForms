@@ -25,7 +25,7 @@
   <p class="pet-details">{{ pet.age }} years old</p>
   <p class="pet-details">{% if pet.notes %}Notes: {{ pet.notes }}{% endif %}</p>
   <p class="pet-details">{% if pet.available == True %}{{ pet.name }} is available for adoption! {% else %}{{ pet.name }} is no longer available. {% endif %}</p>
-  <button class="btn btn-sm btn-info">EDIT</button>
+  <a href="/edit/{{pet.id}}" class="btn btn-sm btn-info">EDIT</a>
 </div> 
 </div>
 </div>
