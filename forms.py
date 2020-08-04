@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField
+from wtforms import StringField, IntegerField, BooleanField
 from wtforms.validators import InputRequired, Optional, Email
 
 
@@ -18,6 +18,7 @@ class AddPetForm(FlaskForm):
     photo = StringField("Photo of Pet")
     age = IntegerField("Age of Pet")
     notes = StringField("Notes about Pet")
+    available = BooleanField("Is Pet Avail?")
     
 
 

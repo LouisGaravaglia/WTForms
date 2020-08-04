@@ -8,24 +8,26 @@
 {% block content %}
 
 
-
-
-
-
-
 <section class="pets">
 
-<h3 class="users_title">AVAILABLE PETS</h3>
-
+<h1 class="home-header">AVAILABLE PETS</h1>
+<br>
 
 {% for pet in pets %}
-<h2 class="mt-4 home-pet-title">
-  <a href="/pets/{{ pet.id }}">{{ pet.title }}</a>
-</h2>
-<p>{{ pet.content }}</p>
-<p>
-  <small>By {{ pet.user.full_name }} on {{ pet.friendly_date }}</small>
-</p>
+<div class="container pet-container">
+<div class="row">
+  <div class="col">
+  <img class="pet-img"src="{{ pet.photo }}" alt="Photo of Pet">
+</div>
+<div class="col-9">
+  <p class="pet-title">{{ pet.name }}</p>
+  <p class="pet-details">{{ pet.species }}</p>
+  <p class="pet-details">{{ pet.age }} years old</p>
+  <p class="pet-details">{% if pet.notes %}Notes: {{ pet.notes }}{% endif %}</p>
+  <p class="pet-details">{% if pet.available == True %}{{ pet.name }} is available for adoption! {% else %}{{ pet.name }} is no longer available. {% endif %}</p>
+</div> 
+</div>
+</div>
 {% endfor %}
 
 

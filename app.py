@@ -7,6 +7,9 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = "oh-so-secret"
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgres:///flask_wtforms"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False 
+# app.config["TESTING"] = True
+# app.config["DEBUG_TB_HOSTS"] = ["dont-show-debug-toolbar"]
 
 debug = DebugToolbarExtension(app)
 
@@ -34,6 +37,11 @@ def add_pet():
         photo = form.photo.data
         age = form.age.data
         notes = form.notes.data
+        available = form.available.data
+        
+        new_pet = Pet(name=name, species=species, photo=photo, age=age, notes=notes, available=available)
+        db.session.add(new_pet)
+        db.session.commit()
         flash(f"Added {name} the {species}")
         return redirect("/add")
 
