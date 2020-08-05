@@ -31,7 +31,11 @@
     margin: 20px 0;
 }
 
-
+.details {
+     font-family: 'Ubuntu', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;   
+}
 
 .pet-title {
     font-family: 'Ubuntu', sans-serif;
